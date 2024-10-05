@@ -11,6 +11,6 @@ test('Successful login with standard user', async ({ page }) => {
   // Press on the button
   await page.locator('[id="login-button"]').click();
   
-  // I can see products
+  // I can see the hamburger menu icon
   await expect(page.locator('[id="react-burger-menu-btn"]')).toBeVisible();
 });
