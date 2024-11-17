@@ -1,38 +1,41 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../pages/loginPageObjects";
+import { ValamiMasikPage } from "../pages/valamiMasikPage";
+
 let loginPage: LoginPage;
+let valamiMasikPage: ValamiMasikPage;
 
 test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
+  valamiMasikPage = new ValamiMasikPage(page);
 });
 
-test.only("Successful login with standard user", async ({ page }) => {
-  // Navigate to the site
-  await page.goto(loginPage.baseURL);
+test.describe(
+  "Login tests",
+  {
+    tag: ["@Regression", "@Sanity", "@Login"],
+    annotation: { type: "valami", description: "leiras" },
+  },
+  () => {
+    test("Successful login with standard user", async () => {
+      // Megnyitja a fooldalt
+      await loginPage.goToLoginPage();
 
-  // Fill out username and pass
-  await loginPage.userNameInput.fill(loginPage.standardUserName);
-  await loginPage.passwordInput.fill(loginPage.password);
+      // Kitolti a usernamet, passwordot a megfelelo adatokkal es megnyomja a login gombot
+      await loginPage.login(loginPage.credentials.standardUserName);
 
-  // Press on the button
-  await loginPage.loginButton.click();
+      // Ravizsgal, hogy megvan-e a belepes utani screenen egy icon
+      await expect(loginPage.locators.icons.hamburgerMenuIcon).toBeVisible();
+    });
 
-  // I can see the hamburger menu icon
-  await expect(loginPage.hamburgerMenuIcon).toBeVisible();
-});
+    test("Unsuccessful login with blocked user", async () => {
+      await loginPage.goToLoginPage();
 
-// test("Unsuccessful login with blocked user", async ({ page }) => {
-//   // Navigate to the site
-//   await page.goto(baseURL);
+      await loginPage.login(loginPage.credentials.blockedUserName);
 
-//   // Fill out username and pass
-//   await page.locator(userNameInput).fill(standardUserName);
-//   await page.locator(passwordInput).fill(standardUserPassword);
-
-//   // Press on the button
-//   await page.locator(loginButton).click();
-
-//   // I can see the error message on the login screen
-//   await expect(page.locator(errorMessage)).toBeVisible();
-//   await expect(page.locator(errorMessage)).toHaveText('Epic sadface: Sorry, this user has been locked out.');
-// });
+      await expect(
+        loginPage.locators.errorMessages.loginErrorMessage
+      ).toHaveText(loginPage.locators.texts.loginError.EN);
+    });
+  }
+);
