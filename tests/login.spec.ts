@@ -1,13 +1,10 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../pages/loginPageObjects";
-import { ValamiMasikPage } from "../pages/valamiMasikPage";
 
 let loginPage: LoginPage;
-let valamiMasikPage: ValamiMasikPage;
 
 test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
-  valamiMasikPage = new ValamiMasikPage(page);
 });
 
 test.describe(
@@ -22,20 +19,20 @@ test.describe(
       await loginPage.goToLoginPage();
 
       // Kitolti a usernamet, passwordot a megfelelo adatokkal es megnyomja a login gombot
-      await loginPage.login(loginPage.credentials.standardUserName);
+      await loginPage.login(loginPage.standardUserName);
 
       // Ravizsgal, hogy megvan-e a belepes utani screenen egy icon
-      await expect(loginPage.locators.icons.hamburgerMenuIcon).toBeVisible();
+      await expect(loginPage.locators.hamburgerMenuIcon).toBeVisible();
     });
 
     test("Unsuccessful login with blocked user", async () => {
       await loginPage.goToLoginPage();
 
-      await loginPage.login(loginPage.credentials.blockedUserName);
+      await loginPage.login(loginPage.blockedUserName);
 
       await expect(
-        loginPage.locators.errorMessages.loginErrorMessage
-      ).toHaveText(loginPage.locators.texts.loginError.EN);
+        loginPage.locators.loginErrorMessage
+      ).toHaveText('Epic sadface: Sorry, this user has been locked out.');
     });
   }
 );
