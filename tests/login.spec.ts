@@ -1,10 +1,14 @@
 import { test, expect } from "@playwright/test";
-import { LoginPage } from "../pages/loginPageObjects";
+//import { LoginPage } from "../pages/loginPageObjects";
+//import { GeneralHelperPage } from "../pages/generalHelperObjects";
+import { LoginPage, GeneralHelperPage } from "../pages/pageHub";
 
 let loginPage: LoginPage;
+let generalHelperPage: GeneralHelperPage;
 
 test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
+  generalHelperPage = new GeneralHelperPage(page);
 });
 
 test.describe(
@@ -14,15 +18,18 @@ test.describe(
     annotation: { type: "valami", description: "leiras" },
   },
   () => {
-    test("Successful login with standard user", async () => {
+    test.only("Successful login with standard user", async (page) => {
       // Megnyitja a fooldalt
       await loginPage.goToLoginPage();
 
       // Kitolti a usernamet, passwordot a megfelelo adatokkal es megnyomja a login gombot
       await loginPage.login(loginPage.standardUserName);
 
+      await generalHelperPage.screenshot();
+
       // Ravizsgal, hogy megvan-e a belepes utani screenen egy icon
       await expect(loginPage.locators.hamburgerMenuIcon).toBeVisible();
+
     });
 
     test("Unsuccessful login with blocked user", async () => {
