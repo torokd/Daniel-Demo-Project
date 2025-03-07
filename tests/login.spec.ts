@@ -5,6 +5,8 @@ import { LoginPage, GeneralHelperPage } from "../pages/pageHub";
 
 let loginPage: LoginPage;
 let generalHelperPage: GeneralHelperPage;
+//https://parabank.parasoft.com/parabank/about.htm;jsessionid=4803A87F0082657195F8E9299912F569
+//https://github.com/torokd/Daniel-Demo-Project
 
 test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
