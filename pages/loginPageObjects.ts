@@ -8,6 +8,8 @@ export class LoginPage {
     password: string;
     standardUserName: string;
     blockedUserName: string;
+    performanceUserName: string;
+    problemUserName: string;
     loginErrorMessage: string;
   };
 
@@ -27,6 +29,8 @@ export class LoginPage {
       password: "secret_sauce",
       standardUserName: "standard_user",
       blockedUserName: "locked_out_user",
+      performanceUserName: "performance_glitch_user",
+      problemUserName: "problem_user",
       loginErrorMessage: "Epic sadface: Sorry, this user has been locked out.",
     };
 
@@ -40,13 +44,14 @@ export class LoginPage {
     
   };
 
-  async goToMainPage() {
+  async goToMainPage(): Promise <void> {
     await this.page.goto(this.variables.baseURL);
-  }
+  };
 
-  async login(userName) {
+  async login(userName: string): Promise<void> {
     await this.locators.userNameInput.fill(userName);
     await this.locators.passwordInput.fill(this.variables.password);
     await this.locators.loginButton.click();
-  }
+  };
+
 };

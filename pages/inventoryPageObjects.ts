@@ -9,4 +9,5 @@ export class InventoryPageObjects {
   constructor(page: Page) {
     this.page = page;
   }
+
 }
