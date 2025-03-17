@@ -40,8 +40,7 @@ export class LoginPage {
       loginButton: page.getByRole('button', { name: 'Login' }),
       hamburgerMenuIcon: page.getByRole('button', { name: 'Open Menu' }),
       loginError: page.getByText(this.variables.loginErrorMessage),
-    }
-    
+    };
   };
 
   async goToMainPage(): Promise <void> {

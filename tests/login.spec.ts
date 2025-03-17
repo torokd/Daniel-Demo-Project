@@ -8,22 +8,22 @@ test.beforeEach(async ({ page }) => {
   await loginPage.goToMainPage();
 });
 
-test("Login with standard user", async () => {
+test("Login with standard user", { tag: '@login' }, async () => {
   await loginPage.login(loginPage.variables.standardUserName);
   await expect(loginPage.locators.hamburgerMenuIcon).toBeVisible();
 });
 
-test("Login with blocked user", async () => {
+test("Login with blocked user", { tag: '@login' }, async () => {
   await loginPage.login(loginPage.variables.blockedUserName);
   await expect(loginPage.locators.loginError).toHaveText(loginPage.variables.loginErrorMessage);
 });
 
-test("Login with performance user", async () => {
+test("Login with performance user", { tag: '@login' }, async () => {
   await loginPage.login(loginPage.variables.performanceUserName);
   await expect(loginPage.locators.hamburgerMenuIcon).toBeVisible();
 });
 
-test("Login with problem user", async () => {
+test("Login with problem user", { tag: '@login' }, async () => {
   await loginPage.login(loginPage.variables.problemUserName);
   await expect(loginPage.locators.hamburgerMenuIcon).toBeVisible();
 });
