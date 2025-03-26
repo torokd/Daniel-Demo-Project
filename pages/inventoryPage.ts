@@ -26,7 +26,7 @@ export class InventoryPageObjects {
       itemDescription: page.locator('.inventory_item_desc'),
       itemPrice: page.locator('.inventory_item_price'),
       addButton: page.getByText('ADD TO CART'),
-      removeButton: page.getByText('Remove'),
+      removeButton: page.getByText('REMOVE'),
     };
   };
 
