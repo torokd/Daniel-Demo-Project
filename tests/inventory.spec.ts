@@ -1,12 +1,12 @@
 import {test, expect} from "@playwright/test";
-import { LoginPage, InventoryPageObjects } from "../utils/index";
+import { LoginPage, InventoryPage } from "../utils/index";
 
 let loginPage: LoginPage;
-let inventoryPage: InventoryPageObjects;
+let inventoryPage: InventoryPage;
 
 test.beforeEach(async ({page}) => {
     loginPage = new LoginPage(page);
-    inventoryPage = new InventoryPageObjects(page);
+    inventoryPage = new InventoryPage(page);
     await loginPage.goToMainPage();
     await loginPage.login(loginPage.variables.standardUserName);
 });

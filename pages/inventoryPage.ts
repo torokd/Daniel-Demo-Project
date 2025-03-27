@@ -1,6 +1,6 @@
 import { type Locator, type Page } from "@playwright/test";
 
-export class InventoryPageObjects {
+export class InventoryPage {
   readonly page: Page;
 
   readonly locators: {
