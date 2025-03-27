@@ -1,6 +1,6 @@
 import { type Locator, type Page } from "@playwright/test";
 
-export class SideMenuPageObjects {
+export class SideMenuPage {
   readonly page: Page;
   readonly locators: {
     test: Locator
